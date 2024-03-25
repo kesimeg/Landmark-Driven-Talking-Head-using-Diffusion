@@ -1,6 +1,6 @@
 # Landmark-Driven-Talking-Head-using-Diffusion
 
-This library implements an image to image diffusion model. The model takes a reference image, landmarks of the reference and landmarks of the target frame. Using this model for each frame a talking head video can be generated. A sample video can be found below. The generated videos using this model are the videos with captions "Random Noise" and "Same Noise". Using the same noise in each frame creates a better temporal continuity.
+This library implements an image to image diffusion model. The model takes a reference image, landmarks of the reference and landmarks of the target frame. Using this model for each frame a talking head video can be generated. A sample video can be found below. The generated videos using this model are the videos with captions "Random Noise" and "Same Noise". Using the same noise in each frame creates a better temporal continuity. The samples are generated using a model trained for 10 epochs. Training longer could have probably improved results as the model can't get the colors of the video right. This is one of the reasons why using the same noise crates better temporal continuity since the noise effects the colors. 
 
 
 ![](diffusion_gif.gif)
@@ -11,11 +11,13 @@ diffusers
 mediapipe
 Pytorch ignite
 
+The codes are written to use CREMA-D by default.
+
 # Pre Processing
 
 Pre processing has the following steps:
 1) You need to reduce fps of videos to 25. (optional)
-2) Download and put the reference frame to the same folder 
+2) Download and put the [reference image]  to the same folder. This is a symmetrical face image to align face in videos (only first frame).
 3) By running data_preprocessing.py you will extract landmarks using mediapipe. This code extracts landmarks and creates a .pt file for each video. You can run the script as the following:
 ```
 python data_preprocessing.py -i "Input data" -o "pre_precessed_data" --input-video-type="mp4" -fps=25 --template-path="reference.jpeg"
@@ -62,3 +64,5 @@ diffusers : https://github.com/huggingface/diffusers
 simplified mediapipe landmarks: https://github.com/k-m-irfan/simplified_mediapipe_face_landmarks
 
 The landmark extraction code was heavily inspired by : https://github.com/eeskimez/emotalkingface
+
+[reference image]: https://goldenmeancalipers.com/wp-content/uploads/2011/12/mirror11.jpg
